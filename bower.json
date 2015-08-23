@@ -1,0 +1,21 @@
+{
+  "name": "Cquery",
+  "version": "0.0.0",
+  "authors": [
+    "王超毅 <wangchaoyi.tk@gmail.com>"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "qunit": "~1.18.0"
+  }
+}

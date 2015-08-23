@@ -4,36 +4,46 @@
 define(function () {
 
     function init(element){
-        element.addClass = addClass;
-        element.removeClass = removeClass;
-        element.toggleClass = toggleClass;
-        element.hasClass = hasClass;
-    }
-    //ÃÌº”class
-    function addClass(className){
-        this.each(function (element) {
-            element.classList.add(className);
-        })
-    }
-    //…æ≥˝class
-    function removeClass(className){
-        this.each(function (element) {
-            element.classList.remove(className);
-        })
-    }
-    //«–ªªclass
-    function toggleClass(className){
-        this.each(function (element) {
-            element.classList.toggle(className);
-        })
-    }
-    //≈–∂œclass «∑Ò¥Ê‘⁄
-    function hasClass(className){
-        this.each(function (element) {
-            element.classList.contains(className);
-        })
-    }
+        //ÃÌº”class
+        element.addClass = function (className){
+            this.each(function (element) {
+                element.classList.add(className);
+            })
+        };
+        //…æ≥˝class
+        element.removeClass = function (className){
+            this.each(function (element) {
+                element.classList.remove(className);
+            })
+        };
+        //«–ªªclass
+        element.toggleClass = function (className){
+            this.each(function (element) {
+                element.classList.toggle(className);
+            })
+        };
+        //≈–∂œclass «∑Ò¥Ê‘⁄
+        element.hasClass = function (className){
+            this.each(function (element) {
+                element.classList.contains(className);
+            })
+        };
+        //ÃÌº”css Ù–‘
+        element.css = function (styleName, styleValue) {
+            if(styleValue){
+                this.each(function (element) {
+                    element.style[styleName] = styleValue;
+                })
+            }else{
+                var value = null;
+                this.each(function (element) {
+                    value = element.style[styleName];
+                });
+                return value;
+            }
 
+        }
+    }
 
     return init;
 });

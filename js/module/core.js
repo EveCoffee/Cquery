@@ -15,7 +15,10 @@ define(function () {
         //必须先缓存长度，防止数组发生变化后计算出错
         var length = this.length;
         for(var i=0; i<length; i++){
-            callback(this[i], i, this);
+            //回调返回false就表示结束循环
+            if(callback(this[i], i, this) === false){
+                break;
+            }
         }
     }
 
