@@ -1,0 +1,90 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Jquery Test...</title>
+    <style>
+        body{
+            min-height: 1800px;
+        }
+        .error{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+
+<div id="slider" class="slider">
+    <ul class="slider-list">
+        <li>1</li>
+        <li>2</li>
+        <li><span id="span2" class="span">3</span></li>
+        <li>
+            <ul class="slider-list">
+                <li>1</li>
+                <li>2</li>
+            </ul>
+            <input type="text"/>
+        </li>
+        <li><span id="span1" class="span">5</span></li>
+        <li>
+            <input type="text"/>
+        </li>
+    </ul>
+
+    <button>获得焦点</button>
+
+
+</div>
+
+<script src="js/require.js"></script>
+<script>
+    require.config({
+        baseUrl: './js',
+        paths: {
+            slider: 'slider',
+            jquery: 'jquery.min'
+        }
+    });
+
+    require(['query','slider','jquery'], function ($, slider, jQuery) {
+        //console.log(jQuery('.slider-list').find('li').find('#span'));
+
+        window.$ = $;
+        window.jQuery = jQuery;
+        /*var li = $('.slider-list').find('li');
+        li.each(function (element, index) {
+            $(element).on('click', function () {
+                //console.log(this);
+            });
+        });*/
+
+
+        var input = $('.slider-list').find('li').find('input').eq(1);
+        input.addClass('error');
+
+        input.focus(function (event) {
+            console.log('哈哈，焦点事件终于成功了');
+        });
+
+        var button = $('button');
+        button.on('click', function () {
+            input.toggleClass('error');
+            $(window).scrollTop(0);
+        });
+        button.addClass('test');
+
+
+        $(window).mousewheelUp(function (e) {
+            console.log('听说你想要往上移动');
+        });
+        $(window).mousewheelDown(function (e) {
+            console.log('听说你想要往下移动');
+            return false;
+        })
+
+
+    })
+</script>
+</body>
+</html>
+
