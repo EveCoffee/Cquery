@@ -24,12 +24,28 @@ define(function () {
         };
         //判断class是否存在
         element.hasClass = function (className){
+            var _hasClass = false;
             this.each(function (element) {
-                element.classList.contains(className);
-            })
+                _hasClass = element.classList.contains(className);
+            });
+            return _hasClass;
         };
         //添加css属性
         element.css = function (styleName, styleValue) {
+
+            if(arguments.length == 1 && typeof arguments[0] == 'object'){
+                var key,value;
+
+                for(key in arguments[0]){
+                    value = arguments[0][key];
+                    this.each(function (element) {
+                        element.style[key] = value;
+                    })
+                }
+
+                return this;
+            }
+
             if(styleValue){
                 this.each(function (element) {
                     element.style[styleName] = styleValue;
@@ -41,6 +57,8 @@ define(function () {
                 });
                 return value;
             }
+
+            return this;
 
         }
     }

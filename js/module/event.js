@@ -2,7 +2,7 @@
  * Created by coffee on 2015/8/19.
  */
 
-define(['module/core', 'module/dom', 'module/style'], function (core, dom, style) {
+define(['module/core', 'module/dom', 'module/style', 'module/attr'], function (core, dom, style, attr) {
 
     function init(element) {
         //添加遍历等核心方法
@@ -11,6 +11,8 @@ define(['module/core', 'module/dom', 'module/style'], function (core, dom, style
         dom(element);
         //添加样式事件
         style(element);
+        //添加属性事件
+        attr(element);
         //点击事件
         element.click = function (callback) {
             this.each(function (element) {
@@ -27,6 +29,12 @@ define(['module/core', 'module/dom', 'module/style'], function (core, dom, style
         element.on = function (eventName, callback) {
             this.each(function (element) {
                 element[event2js(eventName)] = callback;
+            });
+        };
+        //取消绑定事件
+        element.off = function (eventName) {
+            this.each(function (element) {
+                element[event2js(eventName)] = null;
             });
         };
         //焦点事件

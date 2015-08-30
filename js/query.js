@@ -31,8 +31,19 @@ define(['module/event'], function (event) {
          * 选择器类型判断
          */
         if (selector && typeof selector == 'string') {
-            selectEle = context.querySelectorAll(selector);
 
+            /*
+            * 不能直接拿查询到的伪数组进行操作，因为那是只读属性
+            * */
+
+            var queryEle = context.querySelectorAll(selector);
+            selectEle = {};
+
+            //辅助伪数组
+            for(var i = 0; i<queryEle.length; i++){
+                selectEle[i] = queryEle[i];
+            }
+            selectEle.length = queryEle.length;
             event(selectEle);
             selectEle.find = find;
             return selectEle;

@@ -2,7 +2,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Jquery Test...</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css"/>
+
     <style>
         body{
             min-height: 1800px;
@@ -40,11 +42,11 @@
         </li>
     </ul>
 
-    <button>获得焦点</button>
-
+    <button id="btn" class="btn">获得焦点</button>
 
 </div>
 
+<br/>
 
 <div id="qunit"></div>
 <div id="qunit-fixture"></div>
@@ -55,16 +57,7 @@
 <script src="../js/require.js"></script>
 
 <script>
-    QUnit.test( "hello test", function( assert ) {
-        //assert.ok( "hello world" == "hello world", "Test hello wordl" );
-        assert.equal( 0, 0, "Zero, Zero; equal succeeds" );
-        assert.equal( "", 0, "Empty, Zero; equal succeeds" );
-        assert.equal( "", "", "Empty, Empty; equal succeeds" );
-        assert.equal( 0, false, "Zero, false; equal succeeds" );
 
-        assert.equal( "three", 3, "Three, 3; equal fails" );
-        assert.equal( null, false, "null, false; equal fails" );
-    });
 </script>
 
 <script>
@@ -78,24 +71,59 @@
             jquery: 'jquery.min'
         }
     });
-
-    require(['query','slider','jquery'], function ($, slider, jQuery) {
-        //console.log(jQuery('.slider-list').find('li').find('#span'));
+    require(['query', 'jquery'], function ($, jQuery) {
 
         window.$ = $;
         window.jQuery = jQuery;
 
-
-        var button = $('button');
-        button.on('click', function () {
-            button.css('width', 300);
+        QUnit.test( "选择器测试", function( assert ) {
+            assert.equal($('button').length>=1, true, '标签选择');
+            assert.equal($('.btn').length>=1, true, 'class选择');
+            assert.equal($('#btn').length>=1, true, 'id选择');
         });
-        button.addClass('test');
+
+        QUnit.test( "事件绑定测试", function( assert ) {
+
+
+            var eventObj = [];
+            var $btn = $('.btn');
+            var btnQuery = jQuery('.btn');
+            /*绑定事件，Jquery触发并对比*/
+            $btn.click(function (e) {
+                eventObj.push(e.type);
+            });
+            btnQuery.click();
+            assert.deepEqual(eventObj, ['click'], '事件绑定');
+
+            /*取消事件绑定*/
+            $btn.off('click');
+            btnQuery.click();
+            assert.deepEqual(eventObj, ['click'], '取消事件绑定');
+
+        });
+
+        QUnit.test('属性测试', function (assert) {
+            var $btn = $('.btn');
+            var btnQuery = jQuery('.btn');
+
+            $btn.attr('a', '1');
+            assert.ok(btnQuery.attr('a')=='1', '设置属性');
+            assert.ok($btn.attr('a')=='1', '返回属性');
+
+            $btn.removeAttr('a');
+            assert.ok($btn.attr('a')==undefined, '删除属性');
+
+            //属性之第一个测试
+            $btn = $('button');
+            btnQuery = jQuery('button');
+
+            $btn.prop('a', 111);
+
+        })
+    });
 
 
 
-
-    })
 </script>
 </body>
 </html>
