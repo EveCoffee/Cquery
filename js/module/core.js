@@ -28,18 +28,16 @@ define(function () {
      */
     function eq(index){
         var _this = this;
+        var tempValue = _this[index];
+
         _this.each(function (element, _index) {
-            if(index !== _index){
-                delete _this[_index];
-                _this.length--;
-            }else{
-                _this[0] = _this[_index];
-                if(_index !== 0){
-                    delete _this[_index];
-                }
-            }
+            delete _this[_index];
         });
-        console.log(_this);
+        if(tempValue){
+            _this[0] = tempValue;
+            _this.length = 1;
+        }
+
         return _this;
     }
     return init;
