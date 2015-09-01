@@ -6,6 +6,34 @@ define(function () {
     function init(element){
         element.each = each;
         element.eq = eq;
+        element.clone = clone;
+    }
+
+    /**
+     * 对象克隆
+     * 对象里面可能包含null或者函数
+     * 它们的共同点是： Object.keys()返回的长度是0
+     */
+    function _clone(object){
+        var newObject = {};
+        if(typeof object == 'object'){
+            for(var attr in object){
+                if(object.hasOwnProperty(attr)){
+                    if(typeof object[attr]=='object' && Object.keys(object[attr]).length !== 0){
+                        newObject[attr] = _clone(object[attr]);
+                    }else{
+                        newObject[attr] = object[attr];
+                    }
+                }
+            }
+        }
+
+        return newObject;
+    }
+
+    function clone(){
+
+        return _clone.call(this, this);
     }
 
     /**
@@ -27,7 +55,7 @@ define(function () {
      * @param index 传入取值下标
      */
     function eq(index){
-        var _this = this;
+        var _this = _clone(this);
         var tempValue = _this[index];
 
         _this.each(function (element, _index) {

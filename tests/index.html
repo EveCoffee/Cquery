@@ -75,14 +75,23 @@
 
         window.$ = $;
         window.jQuery = jQuery;
+        
+        QUnit.test('核心函数', function (assert) {
 
-        QUnit.test( "选择器测试", function( assert ) {
+            var button = $('button');
+            var buttonClone = button.clone();
+
+            assert.ok(button!==buttonClone, '测试克隆后属性是否相等');
+            assert.deepEqual(button, buttonClone, '测试对象是否相等');
+        });
+
+        QUnit.test( "选择器", function( assert ) {
             assert.equal($('button').length>=1, true, '标签选择');
             assert.equal($('.btn').length>=1, true, 'class选择');
             assert.equal($('#btn').length>=1, true, 'id选择');
         });
 
-        QUnit.test( "事件绑定测试", function( assert ) {
+        QUnit.test( "事件绑定", function( assert ) {
 
 
             var eventObj = [];
@@ -117,9 +126,16 @@
             $btn = $('button');
             btnQuery = jQuery('button');
 
-            $btn.prop('a', 111);
+            //$btn.prop('a', 111);
+            //assert.ok(btnQuery.prop('a')==111, '设置首个元素的的属性');
 
-        })
+        });
+        var a = $('button');
+        var b = a.clone();
+        window.a = a;
+        window.b = b;
+        console.log(a);
+        console.log(b);
     });
 
 
