@@ -2,8 +2,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Jquery Test...</title>
-    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css"/>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../node_modules/qunitjs/qunit/qunit.css"/>
 
     <style>
         body{
@@ -42,6 +42,8 @@
         </li>
     </ul>
 
+    <input type="checkbox">
+
     <button id="btn" class="btn">获得焦点</button>
 
 </div>
@@ -51,31 +53,17 @@
 <div id="qunit"></div>
 <div id="qunit-fixture"></div>
 
-
-<script src="../bower_components/qunit/qunit/qunit.js"></script>
-
-<script src="../js/require.js"></script>
-
-<script>
-
-</script>
+<script src="../node_modules/qunitjs/qunit/qunit.js"></script>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../js/query.js"></script>
 
 <script>
     "use strict";
 
-
-    require.config({
-        baseUrl: '../js',
-        paths: {
-            slider: 'slider',
-            jquery: 'jquery.min'
-        }
-    });
-    require(['query', 'jquery'], function ($, jQuery) {
-
+    (function ($, jQuery) {
         window.$ = $;
         window.jQuery = jQuery;
-        
+
         QUnit.test('核心函数', function (assert) {
 
             var button = $('button');
@@ -132,12 +120,13 @@
         });
         var a = $('button');
         var b = a.clone();
-        window.a = a;
-        window.b = b;
-        console.log(a);
-        console.log(b);
-    });
 
+
+        $("input[type='checkbox']").on("change", function () {
+            console.log($(this).prop("checked"));
+        });
+
+    })(query, jQuery)
 
 
 </script>
