@@ -39,9 +39,9 @@ function clone(){
  * 给对象添加遍历方法
  */
 function each(callback){
+    
     //必须先缓存长度，防止数组发生变化后计算出错
-    var length = this.length;
-    for(var i=0; i<length; i++){
+    for(var i=0, length = this.length; i<length; i++){
         //回调返回false就表示结束循环
         if(callback.call(this[i], this[i], i, this) === false){
             break;
